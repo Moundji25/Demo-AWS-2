@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/mon-app/build
+#/mon-app/build
 
 # misc
 .DS_Store

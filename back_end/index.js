@@ -11,8 +11,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-__dirname = path.resolve();
-
 app.get('/CoinList/:monnaie/', async (req, res) => {
   const monnaie = req.params.monnaie;
   console.log("DANS COIN LIST : ")
@@ -68,22 +66,21 @@ fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=mark
 const json_res = await resultat.json()
 //console.log(json_res);
 res.json(json_res);
-
 })
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
-
+__dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/mon-app/build")));
-  console.log("HEY PRODUCTION HERE")
+
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname, "mon-app", "build", "index.html"))
   );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
 }
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
-
-
-
-

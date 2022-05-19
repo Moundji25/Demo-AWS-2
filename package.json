@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node back_end/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild" : "set NPM_CONFIG_PRODUCTION=false npm install --prefix mon-app && npm run build --prefix mon-app"
   },
   "author": "",
   "license": "ISC",

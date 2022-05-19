@@ -11,25 +11,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
-__dirname = path.resolve();
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/mon-app/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "mon-app", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
-}
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
-
-
-
 app.get('/CoinList/:monnaie/', async (req, res) => {
   const monnaie = req.params.monnaie;
   console.log("DANS COIN LIST : ")
@@ -86,13 +67,21 @@ const json_res = await resultat.json()
 //console.log(json_res);
 res.json(json_res);
 
-/*
-.then(re => re.json())
-.then(re => res.json(re))*/
-
-
-//res.send("YA SAHBI !!!")
-//console.log("HELLO !!! from node");
 })
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
+__dirname = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/mon-app/build")));
+  console.log("HEY PRODUCTION HERE")
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "mon-app", "build", "index.html"))
+  );
+}
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
+
+
 
 

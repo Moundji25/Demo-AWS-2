@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+__dirname = path.resolve();
+
 app.get('/CoinList/:monnaie/', async (req, res) => {
   const monnaie = req.params.monnaie;
   console.log("DANS COIN LIST : ")
@@ -70,7 +72,7 @@ res.json(json_res);
 })
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEPLOY PART
-__dirname = path.resolve();
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/mon-app/build")));
